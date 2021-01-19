@@ -10,6 +10,7 @@ import Table from '@material-ui/core/Table'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
+import {SearchBar} from '../src/components/searchbar/SearchBar'
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
                 
               </Grid>
               <Grid item> 
+              <SearchBar placeholder="SaS!"></SearchBar>
               </Grid>
               <Grid item>
                 <Button color="inherit" variant="outlined">
