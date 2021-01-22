@@ -9,16 +9,18 @@ import Table from '@material-ui/core/Table'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import CardActionArea from '@material-ui/core/CardActionArea'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import {SearchBar} from '../src/components/SearchBar'
 import GridList from '@material-ui/core/GridList'
 import {useEffect, useState} from 'react'
 import {DATA_LANGS, LANG_ID_RU, LANG_ID_EN} from './language'
+import {DATA_NAV} from './navigation'
 import _ from 'lodash'
-import {useRouter} from 'next/router'
+import Router, {useRouter} from 'next/router'
  
-const PAGE_ID = "page_main"; 
+const PAGE_LANG_ID = "page_main"; 
 
 export default function Home() {
 
@@ -33,9 +35,15 @@ export default function Home() {
     }
   };
 
+  const handleClickRouteCards = (href, lang_id) => {
+    Router.push({
+      pathname: href,
+      query: { lang: lang_id}
+    });
+  };
+
   const language = DATA_LANGS[current_language_id];
 
-  const router = useRouter();
 
   return (
     <div>
@@ -52,11 +60,11 @@ export default function Home() {
                   alignItems="center">
             <Grid item>
               <Typography variant="h4">
-                {language[PAGE_ID]["title_page"]}
+                {language[PAGE_LANG_ID]["title_page"]}
               </Typography>
             </Grid>
             <Grid item>
-              <Button onClick={handleClickSwitchLanguage} variant="outlined" color="inherit">
+              <Button onClick={() => handleClickSwitchLanguage()} variant="outlined" color="inherit">
                 {language["language_id"]}
               </Button>
             </Grid>
@@ -71,21 +79,23 @@ export default function Home() {
             spacing={5}
             style={{padding: "100px"}}>
       
-      {_.map(language, (key, item) => {
-                  if (item.toString().includes("page_") && item.toString().includes("_main") === false) {
-                    return <Grid item key={item}>
-                      <Card>
-                        <CardContent>
-                          <Typography>
-                            {language[item]["title_page"]}
-                          </Typography>
-                        </CardContent>
-                      </Card>
+      {_.map(DATA_NAV, (item, key) => {
+                    if ("page_"+key in language) {
+                      return <Grid item key={key}>
+                        <Card>
+                          <CardActionArea onClick={()=> handleClickRouteCards(item.href, current_language_id)}>
+                            <CardContent>
+                              <Typography>
+                                {language["page_" + key]["title_page"]}
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card>
                       </Grid>
-                  }
-                  else {
-                    return null;
-                  }
+                    }
+                    else {
+                      return null;
+                    }
       })}
         
       </Grid>  

@@ -13,34 +13,10 @@ import TextField from '@material-ui/core/TextField'
 import {SearchBar} from '../src/components/SearchBar'
 
 
-export default function () {
+export default function pageCars() {
     return <div>
         <Head>
             <title>Cars</title>
         </Head>
-
-        <AppBar position="static" >
-          <ToolBar>
-            <Grid container direction="row" justify="space-between" alignItems="center">
-              <Grid item xs={6}>
-                <Typography variant="h4">
-                  Car magazine
-                </Typography>
-              </Grid>
-              <Grid item> 
-              <SearchBar placeholder="Search..."></SearchBar>
-              </Grid>
-              <Grid item>
-                <Button color="inherit" variant="outlined">
-                  Login
-                </Button>
-              </Grid>
-            </Grid>
-          </ToolBar>
-        </AppBar>
-
-        <Container>
-
-        </Container>
     </div>;
 };
